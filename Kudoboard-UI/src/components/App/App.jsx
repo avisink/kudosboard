@@ -11,14 +11,14 @@ function App() {
   return (
     <Router>
       <div>
-        <header>
+        {/* <header>
           <nav>
             <Link to="/">Home</Link> |{" "}
             <Link to="/kudos">Kudos</Link> |{" "}
             <Link to="/create-board">Create Board</Link> |{" "}
             <Link to="/create-kudos">Create Kudos</Link>
           </nav>
-        </header>
+        </header> */}
 
         <Routes>
           <Route path="/" element={<HomePage />} />
