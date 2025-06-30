@@ -41,4 +41,5 @@ model KudosCard {
   board_id     Int
   owner       User     @relation(fields: [owner_id], references: [id], onDelete: Cascade)
   owner_id     Int
+  upvote_count Int
 }
