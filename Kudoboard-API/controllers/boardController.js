@@ -33,23 +33,35 @@ exports.getById = async (req, res) => {
 
 // Post /boards
 exports.create = async (req, res) => {
-    const {title, category, image_url, author_id } = req.body
-    if (!title || !category || !image_url || !author_id) {
-        return res.status(400).json({ error: "Missing required fields" });
-    }
+    try {
+        const { title, category, image_url, author_id } = req.body;
 
-    const newBoard = await prisma.board.create({
-        data: {
-            title,
-            category,
-            image_url,
-            author: {
-                connect: { id: author_id }
-            }
+        // Validate fields
+        if (!title || !category) {
+            return res.status(400).json({ error: "Title and category are required." });
         }
-    });
-    res.status(201).json(newBoard)
-}
+
+        const data = {
+            title,
+            category
+        };
+
+        if (image_url) {
+            data.image_url = image_url;
+        }
+
+        if (author_id) {
+            data.author = {
+                connect: { id: author_id }
+            };
+        }
+        // Create the board
+        const newBoard = await prisma.board.create({ data });
+        res.status(201).json(newBoard);
+    } catch (err) {
+        res.status(500).json({ error: "Error creating board." });
+    }
+};
 
 // Put /boards/:id
 exports.update = async (req, res) => {

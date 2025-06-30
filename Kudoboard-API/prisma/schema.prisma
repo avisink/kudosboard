@@ -25,7 +25,7 @@ model Board {
   id        Int      @id @default(autoincrement())
   title     String
   category  String
-  image_url  String
+  image_url  String   @default("https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg")
   author    User?     @relation(fields: [author_id], references: [id], onDelete: Cascade)
   author_id  Int?
   kudos     KudosCard[]
