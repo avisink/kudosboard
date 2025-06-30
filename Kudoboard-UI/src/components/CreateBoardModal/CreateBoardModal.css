@@ -11,13 +11,8 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: fadeIn 0.3s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
 
 /* Modal Content - the actual modal box */
 .modal-content {
@@ -72,7 +67,7 @@
     border-color: var(--primary);
     background-color: #ffffff;
     box-shadow: 0 0 0 4px rgba(33, 88, 131, 0.1);
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
 }
 
 .form-group input:hover {
@@ -136,4 +131,48 @@
 
 .cancel-btn:active, .submit-btn:active {
     transform: translateY(0);
+}
+
+.form-group select {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 16px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: var(--text);
+    transition: all 0.3s ease;
+    outline: none;
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(33, 88, 131, 0.1);
+    transform: translateY(-2px);
+}
+
+.form-group select:hover {
+    border-color: var(--secondary);
+    background-color: #ffffff;
+}
+
+.img-preview {
+    margin: 1rem;
+    text-align: center;
+}
+
+.img-preview h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.img-preview img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
 }
