@@ -5,4 +5,4 @@
 
 */
 -- AlterTable
-ALTER TABLE "KudosCard" ADD COLUMN     "upvote_count" INTEGER NOT NULL;
+
