@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -27,8 +26,8 @@ model Board {
   title     String
   category  String
   image_url  String
-  author    User     @relation(fields: [author_id], references: [id], onDelete: Cascade)
-  author_id  Int
+  author    User?     @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  author_id  Int?
   kudos     KudosCard[]
 }
 
@@ -39,7 +38,7 @@ model KudosCard {
   gif_url     String
   board       Board    @relation(fields: [board_id], references: [id], onDelete: Cascade)
   board_id     Int
-  owner       User     @relation(fields: [owner_id], references: [id], onDelete: Cascade)
-  owner_id     Int
+  owner       User?     @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  owner_id     Int?
   upvote_count Int
 }

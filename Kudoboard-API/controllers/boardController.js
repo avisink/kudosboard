@@ -33,15 +33,22 @@ exports.getById = async (req, res) => {
 
 // Post /boards
 exports.create = async (req, res) => {
-    const {name, description, price, image_url, category } = req.body
-    if (!name || !description || !price || !category) {
+    const {title, category, image_url, author_id } = req.body
+    if (!title || !category || !image_url || !author_id) {
         return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const newboard = await prisma.board.create({
-        data: {name, description, price, image_url, category}
+    const newBoard = await prisma.board.create({
+        data: {
+            title,
+            category,
+            image_url,
+            author: {
+                connect: { id: author_id }
+            }
+        }
     });
-    res.status(201).json(newboard)
+    res.status(201).json(newBoard)
 }
 
 // Put /boards/:id
