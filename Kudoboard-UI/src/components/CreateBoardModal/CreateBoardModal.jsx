@@ -1,12 +1,14 @@
 //Jasmine 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CreateBoardModal.css' 
+import axios from "axios";
 function CreateBoardModal({ show, onClose }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     image_url: '',
     title: '',
-    category: '',
-    author: ''
+    category: ''
   });
 
   const handleInputChange = (e) => {
@@ -17,11 +19,42 @@ function CreateBoardModal({ show, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Board data:', formData);
-    // Handle form submission here
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log('Board data:', formData);
+
+  // Create a board post request
+  try {
+    const response = await axios.post("http://localhost:3000/boards", {
+      image_url: formData.image_url || undefined,
+      title: formData.title,
+      category: formData.category,
+    });
+
+    const data = response.data; 
+
+    console.log("Board created:", data);
+
+    // Clear form after success
+    setFormData({
+      image_url: '',
+      title: '',
+      category: '',
+    });
+
+    // Show success message to user
+    alert("Board created successfully!");
+
+    // Redirect
+    navigate(`/`);
+
+  } catch (error) {
+    console.error("Submission failed:", error);
+    alert("Failed to create board. Please try again.");
+  }
+};
+
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -75,7 +108,7 @@ function CreateBoardModal({ show, onClose }) {
             </select>
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label className="author">Author</label>
             <input
               type="text"
@@ -85,7 +118,7 @@ function CreateBoardModal({ show, onClose }) {
               onChange={handleInputChange}
               required
             />
-          </div>
+          </div> */}
 
           <div className="form-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>
