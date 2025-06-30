@@ -1,1 +1,21 @@
 /* Jada */
+.page-content {
+  padding-top: 750px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board-list {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+@media screen and (max-width:600px) {
+  .page-content {
+    padding-top: 800px;
+  }
+}

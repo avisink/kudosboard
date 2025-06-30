@@ -1,1 +1,47 @@
 /* Jada */
+.board {
+    display: flex;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,.1);
+    width: 300px;
+    height: 400px;
+    flex-direction: column;
+}
+
+.board:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    width: 305px;
+    height: 405px;
+}
+
+.img-container {
+    display: flex;
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+}
+
+.img-container img {
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    object-position: center;
+}
+
+.info {
+    display: flex;
+    width: 100%;
+    height: 20%;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70%;
+    width: 40%;
+}

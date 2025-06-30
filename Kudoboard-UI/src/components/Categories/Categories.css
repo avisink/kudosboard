@@ -1,0 +1,61 @@
+/* make phone friendly */
+.container {
+    top: 500px;
+    position: absolute;
+    display: flex;
+    width:100vw;
+    left :0px;
+    margin-top: 30px;
+    height:100px;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+    gap:20px;
+} 
+
+.item {
+    display: flex;
+    width:10%;
+    height: 80%;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+ .new-container {
+  position: absolute;
+  top: 650px;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  z-index: 2;
+} 
+
+
+.new-item {
+    display: flex;
+    width:40%;
+    height: 80%;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width : 800px) and (min-width: 601px) {
+    .item {
+        width: 15%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .new-container {
+        top:710px;
+    }
+    .item {
+        width: 20%;
+    }
+}
