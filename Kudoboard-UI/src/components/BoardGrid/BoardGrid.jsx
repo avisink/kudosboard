@@ -3,14 +3,14 @@ import BoardCard from "../BoardCard/BoardCard";
 import "./BoardGrid.css"
 import { useEffect, useState } from "react";
 
-function BoardGrid () {
+function BoardGrid ({submitTerm}) {
     const [boards, setBoards] = useState([]);
     const [error, setError] = useState(null);
-
+    
     useEffect(() => {
         const fetchBoards = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/boards`);
+                const res = await fetch(`http://localhost:3000/boards?title=${encodeURIComponent(submitTerm)}`);
                 const data = await res.json();
                 setBoards(data);
             } catch (err) {
@@ -20,7 +20,7 @@ function BoardGrid () {
         };
 
         fetchBoards();
-    }, []);
+    }, [submitTerm]);
 
     const handleDelete = (boardId) => {
       setBoards((prev) => prev.filter((board) => board.id !== boardId));
@@ -30,6 +30,8 @@ function BoardGrid () {
         <div className="page-content">
             <div className="board-list">
                 {error && <p>{error}</p>}
+                {!error && submitTerm && boards.length === 0 && (
+                <p> No results found for "{submitTerm}"</p>)}
                 {boards.map((board) => (
                     <BoardCard key={board.id} board={board} onDelete={() => handleDelete(board.id)}/>
                 ))}
