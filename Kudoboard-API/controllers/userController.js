@@ -38,6 +38,9 @@ const create = async (req, res) => {
 
         res.status(201).json(newUser);
     } catch (error) {
+        if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
+            return res.status(409).json({ error: "Email already exists" });
+        }
         console.error("User creation failed:", error);
         res.status(500).json({ error: "User creation failed" });
     }

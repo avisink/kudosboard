@@ -7,7 +7,7 @@ function Signup({onClose}) {
         email: "",
         password: ""
     });
-    const [errors, setErrors] = useState("");
+    const [errors, setErrors] = useState({});
 
     const handleInputChange = (e) => {
         setFormData(prev => ({
@@ -18,6 +18,7 @@ function Signup({onClose}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({});
 
         try {
         const response = await axios.post("http://localhost:3000/users", formData);
@@ -29,7 +30,8 @@ function Signup({onClose}) {
         });
         onClose();
         } catch (error) {
-        setErrors("Signup failed: " + error.response?.data?.error || error.errors);
+            const backendMessage = error.response?.data?.error || "Signup failed. Try again.";
+            setErrors({ general: backendMessage });
         }
     };
 
@@ -38,20 +40,15 @@ function Signup({onClose}) {
             <div className="modal-content">
                 <h3>Sign Up</h3>
                 <form onSubmit={handleSubmit}>
-                    {errors.general && (
-                        <div className="error-message general-error">
-                            {errors.general}
-                        </div>
-                    )}
                     <div className="form-group">
-                        <label htmlFor="email">Name</label>
+                        <label htmlFor="name">Name</label>
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
+                            type="name"
+                            id="name"
+                            name="name"
                             value={formData.name}
                             onChange={handleInputChange}
-                            placeholder="Enter your email"
+                            placeholder="Enter your name"
                             required
                             className={errors.name ? 'error' : ''}
                         />
@@ -94,7 +91,11 @@ function Signup({onClose}) {
                             <span className="error-message">{errors.password}</span>
                         )}
                     </div>
-
+                        {errors.general && (
+                        <div className="error-message general-error">
+                            {errors.general}
+                        </div>
+                        )}
                     <div className="form-actions">
                         <button 
                             type="button" 
@@ -111,7 +112,7 @@ function Signup({onClose}) {
                         </button>
                     </div>
                 </form>
-                
+
                 <div className="signup-footer">
                     <a href="#" className="forgot-password">Forgot Password?</a>
                 </div>

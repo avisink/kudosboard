@@ -12,7 +12,6 @@ function Login({onClose, onLogin}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        setIsLoading(true);
 
         // Basic frontend validation
         const newErrors = {};
@@ -29,7 +28,7 @@ function Login({onClose, onLogin}) {
         }
 
         try {
-            const response = await axios.post("/login", formData); // replace with full URL if needed
+            // const response = await axios.post("/login", formData);
 
             if (onLogin) {
                 onLogin(response.data);
