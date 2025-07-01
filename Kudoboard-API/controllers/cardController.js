@@ -19,13 +19,12 @@ const getByBoardId = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { title, description, gif_url, upvote_count, board_id } = req.body;
+  const { title, description, gif_url, board_id, upvote_count = 0 } = req.body;
   const newCard = await prisma.kudosCard.create({
-    data: { title, description, gif_url, upvote_count, board_id },
+    data: { title, description, gif_url, board_id: Number(board_id), upvote_count },
   });
   res.status(201).json(newCard);
 };
-
 const update = async (req, res) => {
   const id = Number(req.params.id);
   const { upvote_count } = req.body;

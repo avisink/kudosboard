@@ -1,18 +1,20 @@
 // Jasmine
 
-import { useState } from 'react';
-import './CreateKudosModal.css';
+import { useState } from "react";
+import "./CreateKudosModal.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function CreateKudosModal({ show, onClose }) {
+function CreateKudosModal({ show, onClose, boardId }) {
   const API_KEY = import.meta.env.VITE_GIPHY_KEY;
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    gif_url: '',
-    title: '',
-    description: ''
+    gif_url: "",
+    title: "",
+    description: "",
   });
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
@@ -43,7 +45,7 @@ function CreateKudosModal({ show, onClose }) {
       setSearchResults(data.data || []);
       setShowSearch(true);
     } catch (error) {
-      console.error('Error searching GIFs:', error);
+      console.error("Error searching GIFs:", error);
       setShowSearch(false);
     }
     setIsSearching(false);
@@ -55,13 +57,43 @@ function CreateKudosModal({ show, onClose }) {
       gif_url: gif.images.fixed_height.url,
     }));
     setShowSearch(false);
-    setSearchTerm('');
+    setSearchTerm("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Card data:', formData);
+    console.log("Card data:", formData);
     // Handle form submission here
+
+    // Create a card post request
+    try {
+      const response = await axios.post("http://localhost:3000/cards", {
+        gif_url: formData.gif_url,
+        title: formData.title,
+        description: formData.description,
+        board_id: boardId,
+        upvote_count: 0,
+      });
+
+      const data = response.data;
+
+      console.log("Card created:", data);
+
+      setFormData({
+        gif_url: "",
+        title: "",
+        category: "",
+      });
+
+      // Show success message to user
+      alert("Card created successfully!");
+
+      // Redirect
+      navigate(`/`);
+    } catch (error) {
+      console.error("Submission failed:", error);
+      alert("Failed to create card. Please try again.");
+    }
   };
 
   return (
@@ -69,13 +101,12 @@ function CreateKudosModal({ show, onClose }) {
       <div className="modal-content">
         <h3>Create a New Card</h3>
         <form onSubmit={handleSubmit}>
-          
-        {formData.gif_url && (
-          <div className="gif-preview">
-            <h4>GIF Preview</h4>
-            <img src={formData.gif_url} alt="Selected GIF" />
-          </div>
-        )}
+          {formData.gif_url && (
+            <div className="gif-preview">
+              <h4>GIF Preview</h4>
+              <img src={formData.gif_url} alt="Selected GIF" />
+            </div>
+          )}
 
           <div className="form-group">
             <label className="gif_search">Search for GIF</label>
@@ -94,7 +125,7 @@ function CreateKudosModal({ show, onClose }) {
                 onClick={searchGifs}
                 disabled={isSearching}
               >
-                {isSearching ? 'Searching...' : 'Search'}
+                {isSearching ? "Searching..." : "Search"}
               </button>
             </div>
           </div>

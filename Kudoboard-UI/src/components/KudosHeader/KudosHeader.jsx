@@ -2,10 +2,12 @@
 import "./KudosHeader.css";
 import { IoRibbonOutline } from "react-icons/io5";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import CreateKudosModal from "../CreateKudosModal/CreateKudosModal";
 
 function KudosHeader () {
     const [showModal, setShowModal] = useState(false);
+    const { id } = useParams();
     return (
       <>
         <div className="header">
@@ -28,7 +30,12 @@ function KudosHeader () {
             </div>
           </div>
         </div>
-        {showModal && <CreateKudosModal onClose={() => setShowModal(false)} />}
+        {showModal && (
+          <CreateKudosModal
+            onClose={() => setShowModal(false)}
+            boardId={id} 
+          />
+        )}
       </>
     );
 
