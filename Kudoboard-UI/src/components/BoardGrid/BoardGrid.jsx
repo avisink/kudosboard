@@ -4,7 +4,6 @@ import "./BoardGrid.css"
 import { useEffect, useState } from "react";
 
 function BoardGrid ({submitTerm}) {
-
     const [boards, setBoards] = useState([]);
     const [error, setError] = useState(null);
     
@@ -23,6 +22,9 @@ function BoardGrid ({submitTerm}) {
         fetchBoards();
     }, [submitTerm]);
 
+    const handleDelete = (boardId) => {
+      setBoards((prev) => prev.filter((board) => board.id !== boardId));
+    };
     return (
         <>
         <div className="page-content">
@@ -31,7 +33,7 @@ function BoardGrid ({submitTerm}) {
                 {!error && submitTerm && boards.length === 0 && (
                 <p> No results found for "{submitTerm}"</p>)}
                 {boards.map((board) => (
-                    <BoardCard key={board.id} board={board} />
+                    <BoardCard key={board.id} board={board} onDelete={() => handleDelete(board.id)}/>
                 ))}
             </div>
         </div>

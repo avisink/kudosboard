@@ -6,6 +6,8 @@ import KudosPage from "../KudosPage/KudosPage";
 import HomePage from "../Homepage/Homepage";
 import CreateBoardModal from "../CreateBoardModal/CreateBoardModal";
 import CreateKudosModal from "../CreateKudosModal/CreateKudosModal";
+import Login from "../Login/Login";
+import Signup from "../Signup/Signup";
 
 function App() {
   return (
@@ -22,9 +24,11 @@ function App() {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/kudos" element={<KudosPage />} />
+          <Route path="/boards" element={<KudosPage />} />
+          <Route path="/boards/:id/cards" element={<KudosPage />} />
           <Route path="/create-board" element={<CreateBoardModal />} />
-          
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<Signup/>} />
         </Routes>
       </div>
     </Router>

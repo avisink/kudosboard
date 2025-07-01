@@ -34,6 +34,27 @@ exports.getById = async (req, res) => {
     res.json(board);
 }
 
+exports.getWithCards = async (req, res) => {
+  const id = Number(req.params.id);
+  const board = await prisma.board.findUnique({
+    where: { id },
+    include: {
+      kudos: {
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          gif_url: true,
+          upvote_count: true,
+          owner_id: true,
+        },
+      },
+    },
+  });
+  if (!board) return res.status(404).json({ error: "Board not found!" });
+  res.json(board);
+};
+
 // Post /boards
 exports.create = async (req, res) => {
     try {

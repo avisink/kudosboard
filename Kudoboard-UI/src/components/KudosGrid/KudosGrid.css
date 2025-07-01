@@ -40,3 +40,7 @@
     border-radius: 0.5rem;
     box-shadow: 0 2px 8px rgba(30,41,59,0.08);
   }
+
+  .placeholder-no-text {
+    text-align: center;
+  }

@@ -1,8 +1,10 @@
 // Jada
 import "./BoardHeader.css";
 import { IoMdSearch } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 function BoardHeader({searchTerm, setSearchTerm, handleSubmitClick, handleKeyDown}) {
+    const navigate = useNavigate();
     return (
         <>
             <div className="background">
@@ -11,6 +13,10 @@ function BoardHeader({searchTerm, setSearchTerm, handleSubmitClick, handleKeyDow
                     className="background-img"
                     alt="background image"
                 />
+                <div className="auth-buttons">
+                    <button className="login-btn" onClick={() => navigate('/login')}>Login</button>
+                    <button className="signup-btn" onClick={() => navigate('/signup')}>Signup</button>
+                </div>
                 <div className="info-container">
                     <div className="text">
                         <h1>Find Any Kudoboard Here</h1>
@@ -29,12 +35,15 @@ function BoardHeader({searchTerm, setSearchTerm, handleSubmitClick, handleKeyDow
                     </div>
                     
                        
+                        <input 
+                            type="text" 
+                            className="search"
+                            placeholder="Search" 
+                        />
+                    </div>
                 </div>
-              
             </div>
-           
         </>
-        
     )
 }
 export default BoardHeader;
