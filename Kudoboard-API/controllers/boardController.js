@@ -1,22 +1,25 @@
 const prisma  = require("../db/db");
 
 exports.getAll = async (req, res) => {
-    const { category } = req.query
-
-    const filters = {}
-    
+    console.log("Query params received:", req.query);
+    const { category , title } = req.query;
+    const filters = {};
     if (category) {
         filters.category = {
             equals: category,
             mode: 'insensitive' 
         }
     }
-
+    if (title) {
+        filters.title = {
+            contains: title,
+            mode: 'insensitive' 
+        }
+    }
     try {
         const boards = await prisma.board.findMany({
             where: filters,
         });
-
         res.json(boards);
     } catch (err) {
         console.error(err);
