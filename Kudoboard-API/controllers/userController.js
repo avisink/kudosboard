@@ -19,21 +19,38 @@ const getByBoardId = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    const { title, description, gif_url, upvote_count, board_id } = req.body;
-    const newCard = await prisma.User.create({
-        data: { title, description, gif_url, upvote_count, board_id },
-    });
-    res.status(201).json(newCard);
+    const { name, password, email } = req.body;
+
+    try {
+        const newUser = await prisma.user.create({
+        data: {
+            name,
+            password,
+            email,
+            boards: {
+                create: [] 
+            },
+            kudos: {
+                create: []
+            }
+        }
+        });
+
+        res.status(201).json(newUser);
+    } catch (error) {
+        console.error("User creation failed:", error);
+        res.status(500).json({ error: "User creation failed" });
+    }
 };
 
 const update = async (req, res) => {
     const id = Number(req.params.id);
-    const { upvote_count } = req.body;
-    const updatedCard = await prisma.User.update({
+    const { name, email, password } = req.body;
+    const updatedUser = await prisma.User.update({
         where: { id },
-        data: { upvote_count },
+        data: { name, email, password },
     });
-    res.json(updatedCard);
+    res.json(updatedUser);
 };
 
 const remove = async (req, res) => {
