@@ -8,7 +8,7 @@ function BoardCard ({ board }) {
         <>
         <div className="board">
             <div className="img-container">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg"
+                <img src={board.image_url}
                 alt = "board image">
                 </img>
             </div>
