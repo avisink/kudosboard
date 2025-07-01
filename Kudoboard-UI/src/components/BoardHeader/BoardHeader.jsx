@@ -1,7 +1,8 @@
 // Jada
 import "./BoardHeader.css";
+import { IoMdSearch } from "react-icons/io";
 
-function boardHeader() {
+function BoardHeader({searchTerm, setSearchTerm, handleSubmitClick, handleKeyDown}) {
     return (
         <>
             <div className="background">
@@ -13,11 +14,20 @@ function boardHeader() {
                 <div className="info-container">
                     <div className="text">
                         <h1>Find Any Kudoboard Here</h1>
-                        <input 
-                        type="text" 
-                        className="search"
-                        placeholder="Search" />
+                        <div className="wrapper">
+                            <input 
+                            type="text" 
+                            value = {searchTerm}
+                            className="search"
+                            placeholder="Search"
+                            onChange={(e) => setSearchTerm(e.target.value)} 
+                            onKeyDown={handleKeyDown}/>
+                            <IoMdSearch 
+                            className="icon"
+                            onClick={handleSubmitClick}/>
+                        </div>
                     </div>
+                    
                        
                 </div>
               
@@ -27,4 +37,4 @@ function boardHeader() {
         
     )
 }
-export default boardHeader;
+export default BoardHeader;
