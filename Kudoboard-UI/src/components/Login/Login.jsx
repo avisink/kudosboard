@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './Login.css';
 import axios from 'axios'; 
+import { useNavigate } from "react-router-dom";
 
 function Login({onClose, onLogin}) {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -39,9 +41,8 @@ function Login({onClose, onLogin}) {
             console.log(response.data)
             setErrors({});
             setFormData({ email: '', password: '' });
-            // Optionally close modal here or after delay
-            // onClose();
-
+            navigate("/");
+            
         } catch (error) {
             const errorMsg = error.response?.data?.error || "Login failed. Please try again.";
             setMessage(errorMsg);
@@ -119,7 +120,7 @@ function Login({onClose, onLogin}) {
                         <button 
                             type="button" 
                             className="cancel-btn" 
-                            onClick={onClose}
+                            onClick={navigate("/")}
                         >
                             Cancel
                         </button>

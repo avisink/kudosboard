@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup({onClose, onSignup}) {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -34,8 +36,8 @@ function Signup({onClose, onSignup}) {
                 email: "",
                 password: ""
             });
-            // optionally close modal here if you want:
-            // onClose();
+            navigate("/login");
+
         } catch (error) {
             const backendMessage = error.response?.data?.error || "Signup failed. Please try again.";
             setMessage(backendMessage);
@@ -97,7 +99,7 @@ function Signup({onClose, onSignup}) {
                         <button 
                             type="button" 
                             className="cancel-btn" 
-                            onClick={onClose}
+                            onClick={navigate("/")}
                         >
                             Cancel
                         </button>
