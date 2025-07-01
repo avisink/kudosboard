@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 
 
-function KudosCard({ kudos }) {
+function KudosCard({ kudos, onDelete }) {
   const [upvotes, setUpvotes] = useState(kudos.upvote_count);
   const handleUpvote = async () => {
     try {
@@ -21,6 +21,7 @@ function KudosCard({ kudos }) {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3000/cards/${kudos.id}`);
+      if (onDelete) onDelete();
     } catch (err) {
       alert("Failed to delete card.", err);
     }
