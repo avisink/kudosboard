@@ -33,8 +33,6 @@ function BoardHeader({searchTerm, setSearchTerm, handleSubmitClick, handleKeyDow
                             onClick={handleSubmitClick}/>
                         </div>
                     </div>
-                    
-                       
                         <input 
                             type="text" 
                             className="search"
@@ -42,7 +40,6 @@ function BoardHeader({searchTerm, setSearchTerm, handleSubmitClick, handleKeyDow
                         />
                     </div>
                 </div>
-            </div>
         </>
     )
 }
