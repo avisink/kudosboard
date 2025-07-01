@@ -99,7 +99,7 @@ function Signup({onClose, onSignup}) {
                         <button 
                             type="button" 
                             className="cancel-btn" 
-                            onClick={navigate("/")}
+                            onClick={() => navigate("/")}
                         >
                             Cancel
                         </button>

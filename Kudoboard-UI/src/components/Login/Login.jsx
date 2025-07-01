@@ -120,7 +120,7 @@ function Login({onClose, onLogin}) {
                         <button 
                             type="button" 
                             className="cancel-btn" 
-                            onClick={navigate("/")}
+                            onClick={() => navigate("/")}
                         >
                             Cancel
                         </button>
