@@ -24,7 +24,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/kudos" element={<KudosPage />} />
           <Route path="/create-board" element={<CreateBoardModal />} />
-          
+          <Route path="/login_page" element={<CreateBoardModal />} />
         </Routes>
       </div>
     </Router>
