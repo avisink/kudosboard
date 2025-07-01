@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Login.css';
+import axios from 'axios'; 
 
 function Login({onClose, onLogin}) {
     const [formData, setFormData] = useState({
@@ -8,50 +9,40 @@ function Login({onClose, onLogin}) {
     });
 
     const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
         setIsLoading(true);
 
-        // Basic validation
+        // Basic frontend validation
         const newErrors = {};
         if (!formData.email) {
             newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email';
-        }
-        
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        } else if (formData.password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
         }
 
+        if (!formData.password) {
+            newErrors.password = 'Password is required';
+        }
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
-            setIsLoading(false);
             return;
         }
 
         try {
-            // Simulate API call - replace with your actual login logic
-            console.log('Login attempt:', formData);
-                        
-            // Call the onLogin callback if provided
+            const response = await axios.post("/login", formData); // replace with full URL if needed
+
             if (onLogin) {
-                onLogin(formData);
+                onLogin(response.data);
             }
-            
-            // Close the modal on successful login
+
+            setFormData({ email: '', password: '' });
             onClose();
         } catch (error) {
-            setErrors({ general: 'Login failed. Please try again.' });
-        } finally {
-            setIsLoading(false);
+            const errorMsg = error.response?.data?.error || "Login failed. Please try again.";
+            setErrors({ general: errorMsg });
         }
     };
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -119,16 +110,14 @@ function Login({onClose, onLogin}) {
                             type="button" 
                             className="cancel-btn" 
                             onClick={onClose}
-                            disabled={isLoading}
                         >
                             Cancel
                         </button>
                         <button 
                             type="submit" 
                             className="submit-btn"
-                            disabled={isLoading}
                         >
-                            {isLoading ? 'Logging in...' : 'Login'}
+                            Login
                         </button>
                     </div>
                 </form>

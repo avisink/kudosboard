@@ -1,71 +1,35 @@
-import { useState } from 'react';
-import './Signup.css';
+import React, { useState } from "react";
+import axios from "axios";
 
-function Signup({onClose, onSignup}) {
+function Signup({onClose}) {
     const [formData, setFormData] = useState({
-        email: '',
-        password: ''
+        name: "",
+        email: "",
+        password: ""
     });
+    const [errors, setErrors] = useState("");
 
-    const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    const handleInputChange = (e) => {
+        setFormData(prev => ({
+        ...prev,
+        [e.target.name]: e.target.value
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
-        setIsLoading(true);
-
-        // Basic validation
-        const newErrors = {};
-        if (!formData.email) {
-            newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email';
-        }
-        
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        } else if (formData.password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
-        }
-
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            setIsLoading(false);
-            return;
-        }
 
         try {
-            // Simulate API call - replace with your actual signup logic
-            console.log('Signup attempt:', formData);
-                        
-            // Call the onSignup callback if provided
-            if (onSignup) {
-                onSignup(formData);
-            }
-            
-            // Close the modal on successful signup
-            onClose();
+        const response = await axios.post("http://localhost:3000/users", formData);
+        setErrors("Signup successful! User ID: " + response.data.id);
+        setFormData({
+            name: "",
+            email: "",
+            password: ""
+        });
+        onClose();
         } catch (error) {
-            setErrors({ general: 'Signup failed. Please try again.' });
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-        
-        // Clear error when user starts typing
-        if (errors[name]) {
-            setErrors(prev => ({
-                ...prev,
-                [name]: ''
-            }));
+        setErrors("Signup failed: " + error.response?.data?.error || error.errors);
         }
     };
 
@@ -136,16 +100,14 @@ function Signup({onClose, onSignup}) {
                             type="button" 
                             className="cancel-btn" 
                             onClick={onClose}
-                            disabled={isLoading}
                         >
                             Cancel
                         </button>
                         <button 
                             type="submit" 
                             className="submit-btn"
-                            disabled={isLoading}
                         >
-                            {isLoading ? 'Logging in...' : 'Signup'}
+                            Signup
                         </button>
                     </div>
                 </form>
