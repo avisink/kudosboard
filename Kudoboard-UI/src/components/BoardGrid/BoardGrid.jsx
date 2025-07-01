@@ -4,7 +4,6 @@ import "./BoardGrid.css"
 import { useEffect, useState } from "react";
 
 function BoardGrid () {
-
     const [boards, setBoards] = useState([]);
     const [error, setError] = useState(null);
 
@@ -23,13 +22,16 @@ function BoardGrid () {
         fetchBoards();
     }, []);
 
+    const handleDelete = (boardId) => {
+      setBoards((prev) => prev.filter((board) => board.id !== boardId));
+    };
     return (
         <>
         <div className="page-content">
             <div className="board-list">
                 {error && <p>{error}</p>}
                 {boards.map((board) => (
-                    <BoardCard key={board.id} board={board} />
+                    <BoardCard key={board.id} board={board} onDelete={() => handleDelete(board.id)}/>
                 ))}
             </div>
         </div>
