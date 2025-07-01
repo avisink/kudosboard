@@ -4,6 +4,7 @@ const controller = require("../controllers/boardController")
 
 router.get("/", controller.getAll);
 router.get("/:id", controller.getById);
+router.get("/:id/cards", controller.getWithCards);
 router.post("/", controller.create)
 router.put("/:id", controller.update)
 router.delete("/:id", controller.remove)

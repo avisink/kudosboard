@@ -22,9 +22,9 @@ function App() {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/kudos" element={<KudosPage />} />
+          <Route path="/boards" element={<KudosPage />} />
+          <Route path="/boards/:id/cards" element={<KudosPage />} />
           <Route path="/create-board" element={<CreateBoardModal />} />
-          
         </Routes>
       </div>
     </Router>
