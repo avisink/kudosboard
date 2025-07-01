@@ -1,37 +1,44 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function Signup({onClose}) {
+function Signup({onClose, onSignup}) {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: ""
     });
-    const [errors, setErrors] = useState({});
+    // message can hold success or error string
+    const [message, setMessage] = useState('');
 
     const handleInputChange = (e) => {
         setFormData(prev => ({
-        ...prev,
-        [e.target.name]: e.target.value
+            ...prev,
+            [e.target.name]: e.target.value
         }));
+        setMessage(''); // clear message on input change if you want
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
+        setMessage(''); // clear previous message
 
         try {
-        const response = await axios.post("http://localhost:3000/users", formData);
-        setErrors("Signup successful! User ID: " + response.data.id);
-        setFormData({
-            name: "",
-            email: "",
-            password: ""
-        });
-        onClose();
+            const response = await axios.post("http://localhost:3000/users", formData);
+            if (onSignup) {
+                onSignup(response.data);
+            }
+
+            setMessage("Signup successful! Welcome: " + response.data.name + "!");
+            setFormData({
+                name: "",
+                email: "",
+                password: ""
+            });
+            // optionally close modal here if you want:
+            // onClose();
         } catch (error) {
-            const backendMessage = error.response?.data?.error || "Signup failed. Try again.";
-            setErrors({ general: backendMessage });
+            const backendMessage = error.response?.data?.error || "Signup failed. Please try again.";
+            setMessage(backendMessage);
         }
     };
 
@@ -50,13 +57,8 @@ function Signup({onClose}) {
                             onChange={handleInputChange}
                             placeholder="Enter your name"
                             required
-                            className={errors.name ? 'error' : ''}
                         />
-                        {errors.name && (
-                            <span className="error-message">{errors.name}</span>
-                        )}
                     </div>
-
 
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
@@ -68,11 +70,7 @@ function Signup({onClose}) {
                             onChange={handleInputChange}
                             placeholder="Enter your email"
                             required
-                            className={errors.email ? 'error' : ''}
                         />
-                        {errors.email && (
-                            <span className="error-message">{errors.email}</span>
-                        )}
                     </div>
 
                     <div className="form-group">
@@ -85,17 +83,16 @@ function Signup({onClose}) {
                             onChange={handleInputChange}
                             placeholder="Enter your password"
                             required
-                            className={errors.password ? 'error' : ''}
                         />
-                        {errors.password && (
-                            <span className="error-message">{errors.password}</span>
-                        )}
                     </div>
-                        {errors.general && (
-                        <div className="error-message general-error">
-                            {errors.general}
+
+                    {/* Show message (success or error) */}
+                    {message && (
+                        <div className={`message ${message.includes('successful') ? 'success-message' : 'error-message'}`}>
+                            {message}
                         </div>
-                        )}
+                    )}
+
                     <div className="form-actions">
                         <button 
                             type="button" 

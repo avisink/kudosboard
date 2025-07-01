@@ -8,7 +8,9 @@ function Login({onClose, onLogin}) {
         password: ''
     });
 
-    const [errors, setErrors] = useState({});
+    const [message, setMessage] = useState(''); // holds success or error message
+    const [errors, setErrors] = useState({});   // holds field-specific errors
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -17,12 +19,12 @@ function Login({onClose, onLogin}) {
         if (!formData.email) {
             newErrors.email = 'Email is required';
         }
-
         if (!formData.password) {
             newErrors.password = 'Password is required';
         }
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
+            setMessage('');
             return;
         }
 
@@ -32,16 +34,19 @@ function Login({onClose, onLogin}) {
             if (onLogin) {
                 onLogin(response.data);
             }
-            console.log("Login successful:", response.data);
-            setFormData({ email: '', password: '' });
-            onClose();
+
+            setMessage("Login successful! Welcome back " + response.data.name + "!");
             setErrors({});
+            setFormData({ email: '', password: '' });
+            // Optionally close modal here or after delay
+            // onClose();
+
         } catch (error) {
-            const errorMsg = error.response?.data?.error;
-            setErrors({ general: errorMsg });
+            const errorMsg = error.response?.data?.error || "Login failed. Please try again.";
+            setMessage(errorMsg);
+            setErrors({});
         }
     };
-
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -50,12 +55,16 @@ function Login({onClose, onLogin}) {
             [name]: value,
         }));
         
-        // Clear error when user starts typing
+        // Clear field error on input change
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
                 [name]: ''
             }));
+        }
+        // Clear general message on input change
+        if (message) {
+            setMessage('');
         }
     };
 
@@ -64,9 +73,10 @@ function Login({onClose, onLogin}) {
             <div className="modal-content">
                 <h3>Login</h3>
                 <form onSubmit={handleSubmit}>
-                    {errors.general && (
-                        <div className="error-message general-error">
-                            {errors.general}
+                    {/* Show general success or error message */}
+                    {message && (
+                        <div className={message.toLowerCase().includes('successful') ? "success-message" : "error-message"}>
+                            {message}
                         </div>
                     )}
 
