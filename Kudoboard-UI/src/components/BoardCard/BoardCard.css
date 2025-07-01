@@ -1,47 +1,69 @@
-/* Jada */
 .board {
     display: flex;
+    flex-direction: column;
     border-radius: 20px;
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0, 0, 0, 0.1);
     width: 300px;
     height: 400px;
-    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: 0.2s ease;
 }
 
 .board:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-    width: 305px;
-    height: 405px;
+    transform: scale(1.02);
 }
 
 .img-container {
-    display: flex;
+    flex: 1 1 60%;
     width: 100%;
-    height: 80%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
 }
 
 .img-container img {
-    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
     object-fit: contain;
     display: block;
-    object-position: center;
 }
 
 .info {
+    flex: 0 1 auto;
+    padding: 10px 12px;
     display: flex;
-    width: 100%;
-    height: 20%;
+    flex-direction: column;
     align-items: center;
-    flex-flow: row wrap;
+    text-align: center;
+    gap: 4px;
+}
+
+.info h3,
+.info p {
+    margin: 4px 0;
+}
+
+.buttons {
+    flex: 0 1 auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .options {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 70%;
-    width: 40%;
+    height: 40px;
+    min-width: 80px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
 }
