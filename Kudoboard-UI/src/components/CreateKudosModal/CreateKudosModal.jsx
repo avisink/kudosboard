@@ -9,8 +9,7 @@ function CreateKudosModal({ show, onClose }) {
   const [formData, setFormData] = useState({
     gif_url: '',
     title: '',
-    description: '',
-    owner: '',
+    description: ''
   });
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -151,7 +150,7 @@ function CreateKudosModal({ show, onClose }) {
             />
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label className="owner">Owner</label>
             <input
               type="text"
@@ -160,7 +159,7 @@ function CreateKudosModal({ show, onClose }) {
               value={formData.owner}
               onChange={handleInputChange}
             />
-          </div>
+          </div> */}
 
           <div className="form-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>

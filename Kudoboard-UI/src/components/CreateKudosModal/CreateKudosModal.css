@@ -6,8 +6,9 @@
 
 
 .search-group input{
-    border-radius: 16px 0px 0px 16px;
+    border-radius: 16px 0px 0px 16px !important;
 }
+
 .search-btn{
     background-color: var(--primary);
     color: white;

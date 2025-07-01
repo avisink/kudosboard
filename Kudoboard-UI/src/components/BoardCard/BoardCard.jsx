@@ -1,7 +1,9 @@
 // Jada
 import "./BoardCard.css"
+import { useNavigate } from "react-router-dom";
 
 function BoardCard () {
+    const navigate = useNavigate();
     return (
         <>
         <div className="board">
@@ -11,7 +13,7 @@ function BoardCard () {
                 </img>
             </div>
             <div className="info">
-                <button className="option">view</button>
+                <button className="option" onClick={() => navigate("/kudos")}>view</button>
                 <button className="option">delete</button>
             </div> 
         </div>
