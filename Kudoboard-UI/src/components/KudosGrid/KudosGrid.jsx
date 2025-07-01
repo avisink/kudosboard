@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
+
 function KudosGrid () {
   const { id } = useParams();
   const [cards, setCards] = useState([]);
@@ -23,6 +24,10 @@ function KudosGrid () {
     };
     fetchCards();
   }, [ id ]);
+
+  const handleDelete = (cardId) => {
+    setCards((prev) => prev.filter((card) => card.id !== cardId));
+  };
   
     return (
       <>
@@ -30,7 +35,13 @@ function KudosGrid () {
           <div className="card-list">
             {error && <p>{error}</p>}
             {cards && cards.length > 0 ? (
-              cards.map((kudos) => <KudosCard key={kudos.id} kudos={kudos} />)
+              cards.map((kudos) => (
+                <KudosCard
+                  key={kudos.id}
+                  kudos={kudos}
+                  onDelete={() => handleDelete(kudos.id)}
+                />
+              ))
             ) : (
               <p className="placeholder-no-text">
                 No cards available. Click the button above to create a card.
