@@ -1,7 +1,9 @@
 // Jada
 import "./BoardHeader.css";
+import { useNavigate } from 'react-router-dom';
 
-function boardHeader() {
+function BoardHeader() {
+    const navigate = useNavigate();
     return (
         <>
             <div className="background">
@@ -10,21 +12,23 @@ function boardHeader() {
                     className="background-img"
                     alt="background image"
                 />
+                <div className="auth-buttons">
+                    <button className="login-btn" onClick={() => navigate('/login')}>Login</button>
+                    <button className="signup-btn" onClick={() => navigate('/signup')}>Signup</button>
+                </div>
                 <div className="info-container">
                     <div className="text">
                         <h1>Find Any Kudoboard Here</h1>
                         <input 
-                        type="text" 
-                        className="search"
-                        placeholder="Search" />
+                            type="text" 
+                            className="search"
+                            placeholder="Search" 
+                        />
                     </div>
-                       
                 </div>
-              
             </div>
-           
         </>
-        
     )
 }
-export default boardHeader;
+
+export default BoardHeader;

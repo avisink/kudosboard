@@ -59,6 +59,33 @@
     font-size: large;
 }
 
+.auth-buttons {
+  position: absolute;
+  top: 20px;       
+  right: 8%;     
+  display: flex;
+  gap: 1rem;
+  z-index: 10;    
+}
+
+.login-btn,
+.signup-btn {
+  padding: 0.75rem 2.5rem;    
+  font-size: 1.2rem;          
+  border: none;
+  background-color: var(--secondary);
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background-color: #145a86; /* slightly darker for hover */
+}
 
 @media screen and (min-width: 601px) and (max-width: 900px) {
   .text {
@@ -71,3 +98,4 @@
     font-size: smaller;
   }
 }
+
