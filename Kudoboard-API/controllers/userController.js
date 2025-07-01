@@ -17,6 +17,10 @@ const getByUserId = async (req, res) => {
     }
     const users = await prisma.User.findMany({
         where: { id: Number(id) },
+        include: {
+        boards: true,
+        kudos: true
+        }
     });
     res.json(users);
 };
