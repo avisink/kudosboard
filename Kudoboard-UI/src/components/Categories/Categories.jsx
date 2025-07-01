@@ -1,10 +1,12 @@
 // jada
-import { use } from "react";
+import { useState } from "react";
 import "./Categories.css"
 import { useNavigate } from "react-router-dom";
+import CreateBoardModal from "../CreateBoardModal/CreateBoardModal";
 
 function categories () {
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
     return (
         <>
         <div className="container">
@@ -16,10 +18,11 @@ function categories () {
             <button className="item">Inspiration</button>
         </div>
         <div className="new-container">
+            
             <button className="new-item"
-            onClick={() => {navigate("/create-board")}}>Create a New Board</button>
+            onClick={() => setShowModal(true)}>Create a New Board</button>
         </div>
-       
+        {showModal && <CreateBoardModal onClose={() => setShowModal(false)} />}
         </>
     );
 };
