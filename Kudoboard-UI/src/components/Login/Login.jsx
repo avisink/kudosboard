@@ -11,7 +11,6 @@ function Login({onClose, onLogin}) {
     const [errors, setErrors] = useState({});
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
 
         // Basic frontend validation
         const newErrors = {};
@@ -28,16 +27,17 @@ function Login({onClose, onLogin}) {
         }
 
         try {
-            // const response = await axios.post("/login", formData);
+            const response = await axios.post("http://localhost:3000/users/login", formData);
 
             if (onLogin) {
                 onLogin(response.data);
             }
-
+            console.log("Login successful:", response.data);
             setFormData({ email: '', password: '' });
             onClose();
+            setErrors({});
         } catch (error) {
-            const errorMsg = error.response?.data?.error || "Login failed. Please try again.";
+            const errorMsg = error.response?.data?.error;
             setErrors({ general: errorMsg });
         }
     };

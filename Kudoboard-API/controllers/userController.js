@@ -1,3 +1,4 @@
+
 const prisma = require("../db/db");
 
 //controllers for users
@@ -62,10 +63,34 @@ const remove = async (req, res) => {
     res.status(204).end();
 };
 
+const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { email }
+        });
+
+        // Basic check (no bcrypt yet)
+        if (!user || user.password !== password) {
+            return res.status(401).json({ error: "Invalid email or password" });
+        }
+
+        // Don't return password back
+        const { password: _, ...safeUser } = user;
+
+        res.status(200).json(safeUser);
+    } catch (err) {
+        console.error("Login failed:", err);
+        res.status(500).json({ error: "Login failed" });
+    }
+};
+
 module.exports = {
     getAll,
     getByBoardId,
     create,
     update,
     remove,
+    login,
 };
