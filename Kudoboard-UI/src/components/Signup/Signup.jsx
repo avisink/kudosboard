@@ -111,7 +111,7 @@ function Signup({onClose, onSignup}) {
                 </form>
 
                 <div className="signup-footer">
-                    <a href="#" className="forgot-password">Forgot Password?</a>
+                    <a href="http://localhost:5173/login">Already have an account?</a>
                 </div>
             </div>
         </div>

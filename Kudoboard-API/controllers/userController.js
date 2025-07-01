@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const prisma = require("../db/db");
 
@@ -8,25 +10,28 @@ const getAll = async (req, res) => {
     res.json(users);
 };
 
-const getByBoardId = async (req, res) => {
+const getByUserId = async (req, res) => {
     const { id } = req.params;
     if (!id) {
         return res.status(400).json({ error: "user id parameter is required" });
     }
     const users = await prisma.User.findMany({
-        where: { board_id: Number(id) },
+        where: { id: Number(id) },
     });
     res.json(users);
 };
 
-const create = async (req, res) => {
-    const { name, password, email } = req.body;
+const remove = async (req, res) => {
+    const id = Number(req.params.id);
+    await prisma.User.delete({ where: { id } });
+    res.status(204).end();
+};
 
-    try {
-        const newUser = await prisma.user.create({
+const createUser = async (name, email, hashedPassword) => {
+    return await prisma.user.create({
         data: {
             name,
-            password,
+            password: hashedPassword, // ✅ match Prisma field
             email,
             boards: {
                 create: [] 
@@ -35,15 +40,54 @@ const create = async (req, res) => {
                 create: []
             }
         }
-        });
+    });
+};
 
-        res.status(201).json(newUser);
+const create = async (req, res) => {
+    const { name, email, password } = req.body;
+    console.log("register controller", { name, email, password });
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log(password, hashedPassword);
+        const user = await createUser(name, email, hashedPassword);
+        res.status(201).json(user);
     } catch (error) {
         if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
             return res.status(409).json({ error: "Email already exists" });
         }
         console.error("User creation failed:", error);
         res.status(500).json({ error: "User creation failed" });
+    }
+};
+
+
+const findUserByEmail = async (email) => {
+    return await prisma.user.findUnique({
+        where: { email }
+    });
+};
+
+
+//Login
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    const user = await findUserByEmail(email);
+    if (user && (await bcrypt.compare(password, user.password))) {
+        const token = jwt.sign(
+        { userId: user.id, email: user.email },
+        process.env.JWT_SECRET
+        );
+        res.status(200).json({
+            token,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
+        });
+    } else {
+        res.status(401).json({ error: "Invalid Credentials" });
     }
 };
 
@@ -57,38 +101,9 @@ const update = async (req, res) => {
     res.json(updatedUser);
 };
 
-const remove = async (req, res) => {
-    const id = Number(req.params.id);
-    await prisma.User.delete({ where: { id } });
-    res.status(204).end();
-};
-
-const login = async (req, res) => {
-    const { email, password } = req.body;
-
-    try {
-        const user = await prisma.user.findUnique({
-            where: { email }
-        });
-
-        // Basic check (no bcrypt yet)
-        if (!user || user.password !== password) {
-            return res.status(401).json({ error: "Invalid email or password" });
-        }
-
-        // Don't return password back
-        const { password: _, ...safeUser } = user;
-
-        res.status(200).json(safeUser);
-    } catch (err) {
-        console.error("Login failed:", err);
-        res.status(500).json({ error: "Login failed" });
-    }
-};
-
 module.exports = {
     getAll,
-    getByBoardId,
+    getByUserId,
     create,
     update,
     remove,

@@ -35,7 +35,8 @@ function Login({onClose, onLogin}) {
                 onLogin(response.data);
             }
 
-            setMessage("Login successful! Welcome back " + response.data.name + "!");
+            setMessage("Login successful! Welcome back " + response.data.user.name + "!");
+            console.log(response.data)
             setErrors({});
             setFormData({ email: '', password: '' });
             // Optionally close modal here or after delay
@@ -132,7 +133,7 @@ function Login({onClose, onLogin}) {
                 </form>
                 
                 <div className="login-footer">
-                    <a href="#" className="forgot-password">Forgot Password?</a>
+                    <a href="http://localhost:5173/signup">New User?</a>
                 </div>
             </div>
         </div>
