@@ -3,11 +3,9 @@
 import { useState } from "react";
 import "./CreateKudosModal.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-function CreateKudosModal({ show, onClose, boardId }) {
+function CreateKudosModal({ onCardCreated, onClose, boardId }) {
   const API_KEY = import.meta.env.VITE_GIPHY_KEY;
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     gif_url: "",
     title: "",
@@ -74,7 +72,7 @@ function CreateKudosModal({ show, onClose, boardId }) {
         board_id: boardId,
         upvote_count: 0,
       });
-
+      
       const data = response.data;
 
       console.log("Card created:", data);
@@ -86,10 +84,14 @@ function CreateKudosModal({ show, onClose, boardId }) {
       });
 
       // Show success message to user
-      alert("Card created successfully!");
+      // alert("Card created successfully!");
 
       // Redirect
-      navigate(`/`);
+      //navigate(`/`);
+      onClose();
+      
+      if (onCardCreated) onCardCreated();
+      window.location.reload();
     } catch (error) {
       console.error("Submission failed:", error);
       alert("Failed to create card. Please try again.");
