@@ -10,10 +10,11 @@ function BoardGrid ({submitTerm, category, recentSort}) {
     useEffect(() => {
         const fetchBoards = async () => {
             try {
-                let res = await fetch(`http://localhost:3000/boards?title=${encodeURIComponent(submitTerm)}&category=${encodeURIComponent(category)}`);
+                let res;
                 if (recentSort) {
-                    console.log("true")
                     res = await fetch(`http://localhost:3000/boards?title=${encodeURIComponent(submitTerm)}&category=${encodeURIComponent(category)}&sort_by=id&order=desc`);
+                } else {
+                    res = await fetch(`http://localhost:3000/boards?title=${encodeURIComponent(submitTerm)}&category=${encodeURIComponent(category)}`);
                 }
                 const data = await res.json();
                 setBoards(data);
