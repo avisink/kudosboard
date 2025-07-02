@@ -1,84 +1,189 @@
 /* Ayo */
 .KudosCard {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(30,41,59,0.08);
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border-radius: 20px;
+  box-shadow: 
+    0 4px 16px rgba(30,41,59,0.08),
+    0 1px 4px rgba(30,41,59,0.04);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   margin: 0 auto;
-  width: 260px;
-  min-height: 340px;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  transition: box-shadow 0.2s, transform 0.2s;
+  width: 90%;
+  max-width: 400px; /* Added max-width for better control */
+  height: 500px;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  overflow: hidden;
+}
+
+
+.KudosCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 12px 32px rgba(30,41,59,0.12),
+    0 4px 16px rgba(30,41,59,0.08);
+}
+
+.KudosCard:hover::before {
+  opacity: 1;
+}
+
+/* Fixed media container */
+.KudosCard .media {
+  width: 100%;
+  height: 300px; 
+  overflow: hidden;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .KudosCard img {
   width: 100%;
-  height: 160px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px 8px 0 0;
-  margin-bottom: 0.5rem;
-  background: #e2e8f0;
+  border-radius: 0;
+  background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
   display: block;
-  box-shadow: 0 1px 4px rgba(30,41,59,0.10);
+  transition: transform 0.3s ease;
+}
+
+.KudosCard:hover img {
+  transform: scale(1.02);
+}
+
+/* Fixed info section */
+.kudos-info {
+  width: 100%;
+  flex: 1; /* Take remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem; /* Added padding */
 }
 
 .kudos-card-header {
-  width: 100%;
-  padding: 1rem 1rem 0.5rem 1rem;
+  width: 80%;
   text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .kudos-card-name {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin: 0;
-  color: #334155;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem 0; /* Increased bottom margin */
+  color: #1e293b;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
 
 .kudos-card-description {
   font-size: 0.95rem;
   color: #64748b;
-  margin: 0.2rem 0 0 0;
+  margin: 0;
+  line-height: 1.5;
+  text-align: center;
 }
 
+/* Fixed buttons section */
 .kudos-card-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  margin: 1rem auto 0 auto;
+  width: 80%;
+  padding: 1rem 0 0 0; /* Added top padding */
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  margin-top: 5px;
 }
 
 .upvoteBtn {
-  background: #4ea6a6;
+  background: linear-gradient(135deg, #4ea6a6, #3b8b8b);
   color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 0.3rem 1.2rem;
-  font-size: 1rem;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-right: 0.5rem;
-  transition: background 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(78, 166, 166, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .upvoteBtn:hover {
-  background: #3b8b8b;
+  background: linear-gradient(135deg, #3b8b8b, #2d6a6a);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(78, 166, 166, 0.4);
+}
+
+.upvoteBtn:active {
+  transform: translateY(0);
 }
 
 .delete-cardBtn {
   cursor: pointer;
-  font-size: 1.5rem;
-  color: #64748b;
-  transition: color 0.2s, transform 0.2s;
+  font-size: 1.4rem;
+  color: #94a3b8;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 
 .delete-cardBtn:hover {
-  color: #e53e3e;
-  transform: scale(1.2);
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  transform: scale(1.1);
+}
+
+
+/* Vote count styling */
+.vote-count {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4ea6a6;
+  margin-left: 0.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .KudosCard {
+    height: 400px;
+    width: 90%;
+  }
+  
+  .KudosCard .media {
+    height: 160px;
+  }
+  
+  .kudos-info {
+    padding: 1.25rem;
+  }
+  
+  .kudos-card-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .upvoteBtn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .kudos-card-buttons {
+    padding-top: 0.75rem;
+  }
 }

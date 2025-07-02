@@ -30,20 +30,22 @@ function KudosCard({ kudos, onDelete }) {
   return (
     <>
       <div className="KudosCard">
-        <div className="kudos-card-header">
-          <p className="kudos-card-name">{kudos.title}</p>
-          <p className="kudos-card-description">{kudos.description}</p>
-        </div>
         <div className="media">
           <img src={kudos.gif_url} alt={kudos.title} />
         </div>
-        <div className="kudos-card-buttons">
-          <span className="upvoteBtn" role="button" aria-label="upvote" onClick={handleUpvote}>
-            Upvote: {upvotes}
-          </span>
-          <span className="delete-cardBtn" role="button" aria-label="delete" onClick={handleDelete}>
-            <MdOutlineDelete />
-          </span>
+        <div className="kudos-info">
+          <div className="kudos-card-header">
+            <p className="kudos-card-name">{kudos.title}</p>
+            <p className="kudos-card-description">{kudos.description}</p>
+          </div>
+          <div className="kudos-card-buttons">
+            <span className="upvoteBtn" role="button" aria-label="upvote" onClick={handleUpvote}>
+              Upvote: {upvotes}
+            </span>
+            <span className="delete-cardBtn" role="button" aria-label="delete" onClick={handleDelete}>
+              <MdOutlineDelete />
+            </span>
+          </div>
         </div>
       </div>
     </>

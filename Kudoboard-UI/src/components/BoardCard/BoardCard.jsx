@@ -32,9 +32,9 @@ function BoardCard({ board, onDelete }) {
           <img src={board.image_url} alt="board image"></img>
         </div>
         <div className="info">
+          <span className={`category category-${board.category.toLowerCase()}`}>{board.category}</span>
           <h3>{board.title}</h3>
           <p>{board.description}</p>
-          <span className="category">{board.category}</span>
         </div>
       </div>
     </>

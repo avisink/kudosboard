@@ -3,7 +3,7 @@ import "./Footer.css"
 function Footer () {
     return (
         <>
-        <div className="footer"> KudosBoard © 2025</div>
+        <div className="footer"></div>
         </>
     );
 };

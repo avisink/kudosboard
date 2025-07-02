@@ -24,9 +24,20 @@ function KudosHeader () {
       fetchBoard();
     }, [id]);
 
+    // Create inline style for background image
+    const headerStyle = {
+      backgroundImage: board?.image_url ? `url(${board.image_url})` : 'none',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    };
+
     return (
       <>
-        <div className="header">
+        <div className="header" style={headerStyle}>
+          {/* Add overlay for better text readability */}
+          <div className="header-overlay"></div>
+          
           <div className="logo-media">
             <div className="logo" onClick={() => navigate("/")}>
               <IoHome aria-label="home logo" />
@@ -53,7 +64,6 @@ function KudosHeader () {
         )}
       </>
     );
-
 }
 
 export default KudosHeader;
