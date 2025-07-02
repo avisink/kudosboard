@@ -4,7 +4,7 @@ import "./Categories.css"
 import { useNavigate } from "react-router-dom";
 import CreateBoardModal from "../CreateBoardModal/CreateBoardModal";
 
-function categories () {
+function Categories () {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     return (
@@ -27,4 +27,4 @@ function categories () {
     );
 };
 
-export default categories;
+export default Categories;
