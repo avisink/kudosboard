@@ -2,7 +2,7 @@ const prisma  = require("../db/db");
 
 exports.getAll = async (req, res) => {
     console.log("Query params received:", req.query);
-    const { category , title } = req.query;
+    const { category , title, sort_by, order } = req.query;
     const filters = {};
     if (category) {
         filters.category = {
@@ -16,9 +16,17 @@ exports.getAll = async (req, res) => {
             mode: 'insensitive' 
         }
     }
+    // sorting for recent 
+    let orderBy = {}
+    if (sort_by) {
+        orderBy = {
+        [sort_by]: order === 'desc' ? 'desc' : 'asc',
+    };
+  }
     try {
         const boards = await prisma.board.findMany({
             where: filters,
+            orderBy: Object.keys(orderBy).length ?  orderBy : undefined
         });
         res.json(boards);
     } catch (err) {
