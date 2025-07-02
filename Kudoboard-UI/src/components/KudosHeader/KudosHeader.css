@@ -1,59 +1,62 @@
 /* Ayo */
 .header {
-    background: #23608a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 0 2.5rem 0;
-    gap: 2rem;
-  }
-  .header-content {
-    display: flex;
-    flex-direction: column;
-  }
-  .logo {
-    font-size: 2.5rem;
-    color: #fff;
-    margin-right: 1.5rem;
-    display: flex;
-    align-items: center;
-  }
-  
-  .header-text {
-    color: #fff;
-    text-align: left;
-    margin-right: 2rem;
-  }
-  
-  .header-text h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0;
-    letter-spacing: 1px;
-  }
-  
-  .header-text h2 {
-    font-size: 1.3rem;
-    font-weight: 400;
-    margin: 0.2rem 0 0 0;
-    text-transform: lowercase;
-    letter-spacing: 1px;
-  }
-  
-  .create-card {
-    background: #4ea6a6;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0.7rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-left: 2rem;
-    transition: background 0.2s;
-  }
-  
-  .create-card:hover {
-    background: #3b8b8b;
-  }
+  background: #23608a;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  width: 100%;
+}
+
+.logo {
+  position: absolute;
+  top: 6rem;
+  left: 2rem;
+  font-size: 6rem;
+  color: white;
+  cursor: pointer;
+}
+
+.header-content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header-text h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.header-text h2 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0.5rem 0 1.5rem 0;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+}
+
+.create-card {
+  background: #4ea6a6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.create-card:hover {
+  background: #3b8b8b;
+}
