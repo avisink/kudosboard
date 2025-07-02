@@ -1,6 +1,4 @@
 .footer {
-  position: absolute;
-  left: 0px;
   width: 100%;
   height: 100px;
   background-color: var(--secondary);
@@ -8,6 +6,6 @@
   justify-content: flex-end;
   align-items: center;
   align-self: start;
-  margin-top: 20px;
+  margin-top: auto;
 }
 
