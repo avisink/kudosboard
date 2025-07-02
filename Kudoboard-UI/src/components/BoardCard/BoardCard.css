@@ -99,6 +99,17 @@
     font-size: 24px;
 }
 
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    min-width: 80px;
+    border-radius: 10px;
+    cursor: pointer;
+    color:white;
+}
+
 .board:hover .delete-btn {
     opacity: 1;
     transform: scale(1);

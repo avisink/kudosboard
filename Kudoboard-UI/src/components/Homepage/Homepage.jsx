@@ -8,6 +8,11 @@ import { useState } from "react";
 
 
 function HomePage() {
+  // recent sort 
+  const [recentSort, setRecentSort] = useState(false);
+  // categories 
+  const [category, setCategory] = useState('');
+  // search bar 
   const [searchTerm, setSearchTerm] = useState('');
   const [submitTerm, setSubmitTerm] = useState('');
   const handleSubmitClick = () => {
@@ -26,10 +31,18 @@ function HomePage() {
       setSearchTerm={setSearchTerm}
       handleSubmitClick={handleSubmitClick}
       handleKeyDown={handleKeyDown}
+      setCategory={setCategory}
       />
-      <Categories />
+      <Categories 
+      setCategory={setCategory}
+      category={category}
+      setRecentSort={setRecentSort}
+      />
       <BoardGrid 
-      submitTerm={submitTerm}/>
+      submitTerm={submitTerm}
+      category={category}
+      recentSort={recentSort}/>
+      
       <Footer />
     </div>
   );
