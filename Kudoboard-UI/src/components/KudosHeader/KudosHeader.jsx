@@ -1,6 +1,6 @@
 // Ayo
 import "./KudosHeader.css";
-import { IoRibbonOutline } from "react-icons/io5";
+import { IoHome } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CreateKudosModal from "../CreateKudosModal/CreateKudosModal";
@@ -29,14 +29,13 @@ function KudosHeader () {
         <div className="header">
           <div className="logo-media">
             <div className="logo" onClick={() => navigate("/")}>
-              <IoRibbonOutline aria-label="ribbon logo" />
+              <IoHome aria-label="home logo" />
             </div>
           </div>
 
           <div className="header-content">
             <div className="header-text">
-              <h1>KudoBoard</h1>
-              <h2>{board ? board.title : "Loading..."}</h2>
+              <h1>{board ? board.title : "Loading..."}</h1>
             </div>
 
             <div>

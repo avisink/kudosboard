@@ -71,8 +71,8 @@ function Login({onClose, onLogin}) {
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="modal-overlay auth">
+            <div className="modal-content auth-content">
                 <h3>Login</h3>
                 <form onSubmit={handleSubmit}>
                     {/* Show general success or error message */}
