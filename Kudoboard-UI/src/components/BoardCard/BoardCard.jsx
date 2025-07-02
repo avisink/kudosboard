@@ -1,8 +1,6 @@
 // Jada
 //Ayo edited this so that the view button actually takes you to see the cards
 import "./BoardCard.css";
-import KudosPage from "../KudosPage/KudosPage";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
