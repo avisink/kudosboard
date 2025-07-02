@@ -1,10 +1,9 @@
 //Jasmine 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './CreateBoardModal.css' 
 import axios from "axios";
-function CreateBoardModal({ show, onClose }) {
-  const navigate = useNavigate();
+
+function CreateBoardModal({ onBoardCreated, onClose }) {
   const [formData, setFormData] = useState({
     image_url: '',
     title: '',
@@ -43,11 +42,14 @@ const handleSubmit = async (e) => {
     });
 
     // Show success message to user
-    alert("Board created successfully!");
+    //alert("Board created successfully!");
 
     // Redirect
-    navigate(`/`);
-
+    // navigate(`/`);
+    onClose();
+    
+    if (onBoardCreated) onBoardCreated();
+    window.location.reload();
   } catch (error) {
     console.error("Submission failed:", error);
     alert("Failed to create board. Please try again.");
