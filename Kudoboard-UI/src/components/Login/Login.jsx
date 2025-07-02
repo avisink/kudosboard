@@ -3,7 +3,7 @@ import './Login.css';
 import axios from 'axios'; 
 import { useNavigate } from "react-router-dom";
 
-function Login({onClose, onLogin}) {
+function Login({onClose, onLogin, setUser}) {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -36,6 +36,8 @@ function Login({onClose, onLogin}) {
             if (onLogin) {
                 onLogin(response.data);
             }
+
+            setUser(response.data.user);
 
             setMessage("Login successful! Welcome back " + response.data.user.name + "!");
             console.log(response.data)

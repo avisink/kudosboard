@@ -7,7 +7,7 @@ import { useState } from "react";
 
 
 
-function HomePage() {
+function HomePage({user}) {
   // recent sort 
   const [recentSort, setRecentSort] = useState(false);
   // categories 
@@ -32,6 +32,7 @@ function HomePage() {
       handleSubmitClick={handleSubmitClick}
       handleKeyDown={handleKeyDown}
       setCategory={setCategory}
+      user={user}
       />
       <Categories 
       setCategory={setCategory}
