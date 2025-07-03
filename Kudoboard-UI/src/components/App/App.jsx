@@ -17,7 +17,7 @@ function App() {
       <div>
 
         <Routes>
-          <Route path="/" element={<HomePage user={user}/>} />
+          <Route path="/" element={<HomePage user={user} setUser={setUser}/>} />
           <Route path="/boards" element={<KudosPage />} />
           <Route path="/boards/:id/cards" element={<KudosPage />} />
           <Route path="/create-board" element={<CreateBoardModal user={user}/>} />

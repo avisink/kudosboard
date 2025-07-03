@@ -2,7 +2,7 @@ const prisma  = require("../db/db");
 
 exports.getAll = async (req, res) => {
     console.log("Query params received:", req.query);
-    const { category , title, sort_by, order } = req.query;
+    const { category , title, sort_by, order, author_id } = req.query;
     const filters = {};
     if (category) {
         filters.category = {
@@ -10,6 +10,13 @@ exports.getAll = async (req, res) => {
             mode: 'insensitive' 
         }
     }
+
+    if (author_id) {
+        filters.author_id = {
+            equals: Number(author_id)
+        }
+    }
+
     if (title) {
         filters.title = {
             contains: title,

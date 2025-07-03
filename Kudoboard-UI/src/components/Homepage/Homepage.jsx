@@ -7,7 +7,7 @@ import { useState } from "react";
 
 
 
-function HomePage({user}) {
+function HomePage({user, setUser}) {
   // recent sort 
   const [recentSort, setRecentSort] = useState(false);
   // categories 
@@ -58,7 +58,10 @@ const handleBoardCreated = () => {
       submitTerm={submitTerm}
       category={category}
       recentSort={recentSort}
-      refreshTrigger={refreshTrigger}/>
+      refreshTrigger={refreshTrigger}
+      user={user}
+      setUser={setUser}
+      />
       
       <Footer />
     </div>

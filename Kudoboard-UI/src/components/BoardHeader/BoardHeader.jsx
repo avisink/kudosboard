@@ -4,9 +4,14 @@ import { IoMdSearch } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineClose } from "react-icons/md";
 
-function BoardHeader({ user, searchTerm, setSearchTerm, handleClear, handleSubmitClick, handleKeyDown }) {
+function BoardHeader({ user, searchTerm, setSearchTerm, handleClear, handleSubmitClick, handleKeyDown, setUser }) {
     const navigate = useNavigate();
-    console.log(user);
+    
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        window.location.reload();   
+    }
+
     return (
         <>
         <div className="background">
@@ -16,13 +21,21 @@ function BoardHeader({ user, searchTerm, setSearchTerm, handleClear, handleSubmi
             alt="background image"
             />
             <div className="auth-buttons">
-            <button className="login-btn" onClick={() => navigate('/login')}>
+            {!user && (
+            <>
+                <button className="login-btn" onClick={() => navigate('/login')}>
                 Login
-            </button>
-
-            <button className="signup-btn" onClick={() => navigate('/signup')}>
+                </button>
+                <button className="signup-btn" onClick={() => navigate('/signup')}>
                 Signup
-            </button>
+                </button>
+            </>
+            )}
+            {user && (
+                <button className="login-btn" onClick={handleLogout}>
+                    Logout
+                </button>
+                )}
             </div>
 
             <div className="info-container">

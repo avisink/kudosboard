@@ -52,6 +52,15 @@ function Categories ({setCategory, setRecentSort, category, recentSort, refreshT
             >
                 Inspiration
             </button>
+            <button
+                className={`item ${category === 'myboards' ? 'active' : ''}`}
+                onClick={() => {
+                    setCategory('myboards');
+                    setRecentSort(false);
+                }}
+                >
+                My Boards
+            </button>
         </div>
         <div className="new-container">
             <button className="new-item"
