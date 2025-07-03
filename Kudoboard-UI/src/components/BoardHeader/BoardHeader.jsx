@@ -4,7 +4,7 @@ import { IoMdSearch } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineClose } from "react-icons/md";
 
-function BoardHeader({ user, searchTerm, setSearchTerm, handleSubmitClick, handleKeyDown }) {
+function BoardHeader({ user, searchTerm, setSearchTerm, handleClear, handleSubmitClick, handleKeyDown }) {
     const navigate = useNavigate();
     console.log(user);
     return (
@@ -46,7 +46,7 @@ function BoardHeader({ user, searchTerm, setSearchTerm, handleSubmitClick, handl
                     <IoMdSearch className="icon" onClick={handleSubmitClick} />
                     <MdOutlineClose 
                         className="clear-btn" 
-                        onClick={() => setSearchTerm('')} 
+                        onClick={handleClear} 
                     />
                     </div>
 

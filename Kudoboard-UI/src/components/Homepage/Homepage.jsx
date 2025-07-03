@@ -24,11 +24,17 @@ function HomePage({user}) {
     setSubmitTerm(searchTerm);
   }
 };
+
+const handleClear = () => {
+  setSearchTerm('');
+  setSubmitTerm(''); 
+};
   return (
     <div>
       <BoardHeader 
       searchTerm={searchTerm} 
       setSearchTerm={setSearchTerm}
+      handleClear={handleClear}
       handleSubmitClick={handleSubmitClick}
       handleKeyDown={handleKeyDown}
       setCategory={setCategory}
