@@ -72,8 +72,8 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--accent);
-  color: var(--text);
+  background-color: var(--secondary);
+  color: white;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -83,4 +83,10 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+html, body{
+  width: 100vw;
+  overflow-x: hidden;
+
 }

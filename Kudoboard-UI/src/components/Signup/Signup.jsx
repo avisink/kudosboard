@@ -45,8 +45,8 @@ function Signup({onClose, onSignup}) {
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="modal-overlay auth">
+            <div className="modal-content auth-content">
                 <h3>Sign Up</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">

@@ -7,7 +7,7 @@ import { useState } from "react";
 
 
 
-function HomePage() {
+function HomePage({user}) {
   // recent sort 
   const [recentSort, setRecentSort] = useState(false);
   // categories 
@@ -24,14 +24,21 @@ function HomePage() {
     setSubmitTerm(searchTerm);
   }
 };
+
+const handleClear = () => {
+  setSearchTerm('');
+  setSubmitTerm(''); 
+};
   return (
     <div>
       <BoardHeader 
       searchTerm={searchTerm} 
       setSearchTerm={setSearchTerm}
+      handleClear={handleClear}
       handleSubmitClick={handleSubmitClick}
       handleKeyDown={handleKeyDown}
       setCategory={setCategory}
+      user={user}
       />
       <Categories 
       setCategory={setCategory}

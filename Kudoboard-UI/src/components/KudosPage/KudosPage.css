@@ -1,17 +1,13 @@
 /* Ayo */
-.kudos-page-root {
+.kudospage-root {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; 
     background: #f6f7fa;
-    padding-bottom: 3rem;
   }
   
-  .header {
-    margin-top: 2rem;
-  }
   
   .kudoscard-container {
     display: grid;

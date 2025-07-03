@@ -3,7 +3,7 @@ import './Login.css';
 import axios from 'axios'; 
 import { useNavigate } from "react-router-dom";
 
-function Login({onClose, onLogin}) {
+function Login({onClose, onLogin, setUser}) {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -36,6 +36,8 @@ function Login({onClose, onLogin}) {
             if (onLogin) {
                 onLogin(response.data);
             }
+
+            setUser(response.data.user);
 
             setMessage("Login successful! Welcome back " + response.data.user.name + "!");
             console.log(response.data)
@@ -71,8 +73,8 @@ function Login({onClose, onLogin}) {
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="modal-overlay auth">
+            <div className="modal-content auth-content">
                 <h3>Login</h3>
                 <form onSubmit={handleSubmit}>
                     {/* Show general success or error message */}

@@ -1,31 +1,43 @@
 /* Ayo */
 .header {
-  background: #23608a;
   min-height: 30vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: 2rem;
   position: relative;
   width: 100%;
 }
 
+.header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  backdrop-filter: blur(5px); /* Subtle blur for modern effect */
+  z-index: 1;
+}
+
+
 .logo {
   position: absolute;
-  top: 6rem;
-  left: 2rem;
-  font-size: 6rem;
+  top: 20px;
+  left: 60px;
+  font-size: 4rem;
   color: white;
   cursor: pointer;
+  z-index: 10;
 }
 
 .header-content {
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+    z-index: 15;
 }
 
 .header-text h1 {
@@ -34,6 +46,7 @@
   color: #fff;
   margin: 0;
   letter-spacing: 1px;
+  margin: 20px;
 }
 
 .header-text h2 {
@@ -49,14 +62,16 @@
   background: #4ea6a6;
   color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 0.7rem 2.5rem;
+  border-radius: 10px;
+  padding: 1rem 3rem;
   font-size: 1.1rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
+  box-shadow: 0 4px 15px rgba(79, 150, 156, 0.3);
 }
 
 .create-card:hover {
-  background: #3b8b8b;
+  background: var(--primary);
+  box-shadow: 0 4px 15px rgba(29, 36, 76, 0.3);
 }
