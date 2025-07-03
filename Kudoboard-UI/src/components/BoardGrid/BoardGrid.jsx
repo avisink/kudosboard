@@ -3,7 +3,7 @@ import BoardCard from "../BoardCard/BoardCard";
 import "./BoardGrid.css"
 import { useEffect, useState } from "react";
 
-function BoardGrid ({submitTerm, category, recentSort}) {
+function BoardGrid ({submitTerm, category, recentSort, refreshTrigger}) {
     const [boards, setBoards] = useState([]);
     const [error, setError] = useState(null);
     
@@ -14,7 +14,7 @@ function BoardGrid ({submitTerm, category, recentSort}) {
                 if (recentSort) {
                     res = await fetch(`http://localhost:3000/boards?title=${encodeURIComponent(submitTerm)}&category=${encodeURIComponent(category)}&sort_by=id&order=desc`);
                 } else {
-                    res = await fetch(`http://localhost:3000/boards?title=${encodeURIComponent(submitTerm)}&category=${encodeURIComponent(category)}`);
+                    res = await fetch(`http://localhost:3000/boards?title=${encodeURIComponent(submitTerm)}&category=${encodeURIComponent(category)}&sort_by=id&order=asc`);
                 }
                 const data = await res.json();
                 setBoards(data);
@@ -25,7 +25,7 @@ function BoardGrid ({submitTerm, category, recentSort}) {
         };
 
         fetchBoards();
-    }, [submitTerm, category, recentSort]);
+    }, [submitTerm, category, recentSort, refreshTrigger]);
 
     const handleDelete = (boardId) => {
       setBoards((prev) => prev.filter((board) => board.id !== boardId));

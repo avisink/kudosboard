@@ -34,7 +34,7 @@ function BoardCard({ board, onDelete }) {
         <div className="info">
           <span className={`category category-${board.category.toLowerCase()}`}>{board.category}</span>
           <h3>{board.title}</h3>
-          <p>{board.description}</p>
+          <p className="author-name">Made by: {board.author?.name || "Guest"}</p>
         </div>
       </div>
     </>

@@ -26,7 +26,16 @@ exports.getAll = async (req, res) => {
     try {
         const boards = await prisma.board.findMany({
             where: filters,
-            orderBy: Object.keys(orderBy).length ?  orderBy : undefined
+            orderBy: Object.keys(orderBy).length ? orderBy : undefined,
+            include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    }
+                }
+            }
         });
         res.json(boards);
     } catch (err) {
@@ -36,11 +45,29 @@ exports.getAll = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-    const id = Number(req.params.id)
-    const board = await prisma.board.findUnique({where : { id }});
-    if (!board) return res.status(404).json({ error: "Not found!" });
-    res.json(board);
-}
+    const id = Number(req.params.id);
+
+    try {
+        const board = await prisma.board.findUnique({
+            where: { id },
+            include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true 
+                    }
+                }
+            }
+        });
+
+        if (!board) return res.status(404).json({ error: "Not found!" });
+        res.json(board);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
+    }
+};
 
 exports.getWithCards = async (req, res) => {
   const id = Number(req.params.id);
@@ -67,9 +94,9 @@ exports.getWithCards = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     const { title, category, image_url } = req.body;
-    const userId = req.user?.userId; // comes from JWT
+    const userId = req.user?.userId; // Extracted from JWT
 
-    console.log("Authenticated user ID:", userId);
+    console.log("Authenticated user ID:", userId); // 👀 Debug
 
     if (!title || !category) {
       return res.status(400).json({ error: "Title and category are required." });
@@ -84,7 +111,6 @@ exports.create = async (req, res) => {
       data.image_url = image_url;
     }
 
-    // Only connect author if user is logged in
     if (userId) {
       data.author = {
         connect: { id: userId },
@@ -92,7 +118,6 @@ exports.create = async (req, res) => {
     }
 
     const newBoard = await prisma.board.create({ data });
-
     res.status(201).json(newBoard);
   } catch (err) {
     console.error("Error creating board:", err);

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './CreateBoardModal.css' 
 import axios from "axios";
 
-function CreateBoardModal({ onBoardCreated, onClose, user }) {
+function CreateBoardModal({ onBoardCreated, onClose, user, refreshTrigger }) {
   const [formData, setFormData] = useState({
     image_url: '',
     title: '',
@@ -20,8 +20,8 @@ function CreateBoardModal({ onBoardCreated, onClose, user }) {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-
-  const token = localStorage.getItem("token"); // if exists
+  const token = localStorage.getItem("token"); 
+  console.log(token);
 
   try {
     const response = await axios.post(

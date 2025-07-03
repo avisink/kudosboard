@@ -11,7 +11,7 @@ import Signup from "../Signup/Signup";
 import { useState } from "react"
 function App() {
   const [user, setUser] = useState(null);
-  
+
   return (
     <Router>
       <div>
