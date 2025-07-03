@@ -4,9 +4,7 @@ import KudosCard from "../KudosCard/KudosCard";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
-
-function KudosGrid () {
+function KudosGrid ({refreshTrigger}) {
   const { id } = useParams();
   const [cards, setCards] = useState([]);
   const [error, setError] = useState(null);
@@ -23,7 +21,7 @@ function KudosGrid () {
       }
     };
     fetchCards();
-  }, [ id ]);
+  }, [ id, refreshTrigger ]);
 
   const handleDelete = (cardId) => {
     setCards((prev) => prev.filter((card) => card.id !== cardId));

@@ -91,7 +91,6 @@ function CreateKudosModal({ onCardCreated, onClose, boardId }) {
       onClose();
       
       if (onCardCreated) onCardCreated();
-      window.location.reload();
     } catch (error) {
       console.error("Submission failed:", error);
       alert("Failed to create card. Please try again.");
