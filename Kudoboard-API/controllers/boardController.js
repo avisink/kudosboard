@@ -65,35 +65,41 @@ exports.getWithCards = async (req, res) => {
 
 // Post /boards
 exports.create = async (req, res) => {
-    try {
-        const { title, category, image_url, author_id } = req.body;
+  try {
+    const { title, category, image_url } = req.body;
+    const userId = req.user?.userId; // comes from JWT
 
-        // Validate fields
-        if (!title || !category) {
-            return res.status(400).json({ error: "Title and category are required." });
-        }
+    console.log("Authenticated user ID:", userId);
 
-        const data = {
-            title,
-            category
-        };
-
-        if (image_url) {
-            data.image_url = image_url;
-        }
-
-        if (author_id) {
-            data.author = {
-                connect: { id: author_id }
-            };
-        }
-        // Create the board
-        const newBoard = await prisma.board.create({ data });
-        res.status(201).json(newBoard);
-    } catch (err) {
-        res.status(500).json({ error: "Error creating board." });
+    if (!title || !category) {
+      return res.status(400).json({ error: "Title and category are required." });
     }
+
+    const data = {
+      title,
+      category,
+    };
+
+    if (image_url) {
+      data.image_url = image_url;
+    }
+
+    // Only connect author if user is logged in
+    if (userId) {
+      data.author = {
+        connect: { id: userId },
+      };
+    }
+
+    const newBoard = await prisma.board.create({ data });
+
+    res.status(201).json(newBoard);
+  } catch (err) {
+    console.error("Error creating board:", err);
+    res.status(500).json({ error: "Error creating board." });
+  }
 };
+
 
 // Put /boards/:id
 exports.update = async (req, res) => {

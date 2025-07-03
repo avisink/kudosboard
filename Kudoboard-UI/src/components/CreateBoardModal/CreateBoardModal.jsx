@@ -3,11 +3,11 @@ import { useState } from 'react';
 import './CreateBoardModal.css' 
 import axios from "axios";
 
-function CreateBoardModal({ onBoardCreated, onClose }) {
+function CreateBoardModal({ onBoardCreated, onClose, user }) {
   const [formData, setFormData] = useState({
     image_url: '',
     title: '',
-    category: ''
+    category: '',
   });
 
   const handleInputChange = (e) => {
@@ -20,36 +20,28 @@ function CreateBoardModal({ onBoardCreated, onClose }) {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log('Board data:', formData);
 
-  // Create a board post request
+  const token = localStorage.getItem("token"); // if exists
+
   try {
-    const response = await axios.post("http://localhost:3000/boards", {
-      image_url: formData.image_url || undefined,
-      title: formData.title,
-      category: formData.category,
-    });
+    const response = await axios.post(
+      "http://localhost:3000/boards",
+      {
+        image_url: formData.image_url || undefined,
+        title: formData.title,
+        category: formData.category,
+      },
+      token
+        ? { headers: { Authorization: `Bearer ${token}` } }
+        : undefined // don't send headers if no token
+    );
 
-    const data = response.data; 
-
+    const data = response.data;
     console.log("Board created:", data);
 
-    // Clear form after success
-    setFormData({
-      image_url: '',
-      title: '',
-      category: '',
-    });
-
-    // Show success message to user
-    //alert("Board created successfully!");
-
-    // Redirect
-    // navigate(`/`);
+    setFormData({ image_url: '', title: '', category: '' });
     onClose();
-    
     if (onBoardCreated) onBoardCreated();
-    window.location.reload();
   } catch (error) {
     console.error("Submission failed:", error);
     alert("Failed to create board. Please try again.");

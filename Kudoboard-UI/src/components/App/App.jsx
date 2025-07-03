@@ -11,23 +11,16 @@ import Signup from "../Signup/Signup";
 import { useState } from "react"
 function App() {
   const [user, setUser] = useState(null);
+  
   return (
     <Router>
       <div>
-        {/* <header>
-          <nav>
-            <Link to="/">Home</Link> |{" "}
-            <Link to="/kudos">Kudos</Link> |{" "}
-            <Link to="/create-board">Create Board</Link> |{" "}
-            <Link to="/create-kudos">Create Kudos</Link>
-          </nav>
-        </header> */}
 
         <Routes>
           <Route path="/" element={<HomePage user={user}/>} />
           <Route path="/boards" element={<KudosPage />} />
           <Route path="/boards/:id/cards" element={<KudosPage />} />
-          <Route path="/create-board" element={<CreateBoardModal />} />
+          <Route path="/create-board" element={<CreateBoardModal user={user}/>} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup/>} />
         </Routes>
