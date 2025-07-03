@@ -21,7 +21,7 @@
 }
 
 .img-container {
-    flex: 1 1 60%;
+    height: 60%;
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -43,7 +43,7 @@
 }
 
 .info {
-    flex: 0 1 auto;
+    flex: 1 1 auto;
     padding: 20px 16px 0px 16px;
     display: flex;
     flex-direction: column;
@@ -58,6 +58,10 @@
     font-weight: 600;
     color: #111827;
     line-height: 1.3;
+}
+
+.info p{
+    margin-top: 0px;
 }
 
 .info .category {
@@ -151,3 +155,4 @@
 .delete-btn:active {
     transform: scale(0.95);
 }
+

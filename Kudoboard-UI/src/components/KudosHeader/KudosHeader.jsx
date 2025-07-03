@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CreateKudosModal from "../CreateKudosModal/CreateKudosModal";
 
-function KudosHeader () {
+function KudosHeader ({triggerRefresh}) {
     const [showModal, setShowModal] = useState(false);
     const { id } = useParams();
     const [board, setBoard] = useState(null);
@@ -60,7 +60,7 @@ function KudosHeader () {
           </div>
         </div>
         {showModal && (
-          <CreateKudosModal onClose={() => setShowModal(false)} boardId={id} />
+          <CreateKudosModal onClose={() => setShowModal(false)} boardId={id} onCardCreated={triggerRefresh}  />
         )}
       </>
     );

@@ -2,7 +2,7 @@ const prisma  = require("../db/db");
 
 exports.getAll = async (req, res) => {
     console.log("Query params received:", req.query);
-    const { category , title, sort_by, order } = req.query;
+    const { category , title, sort_by, order, author_id } = req.query;
     const filters = {};
     if (category) {
         filters.category = {
@@ -10,6 +10,13 @@ exports.getAll = async (req, res) => {
             mode: 'insensitive' 
         }
     }
+
+    if (author_id) {
+        filters.author_id = {
+            equals: Number(author_id)
+        }
+    }
+
     if (title) {
         filters.title = {
             contains: title,
@@ -26,7 +33,16 @@ exports.getAll = async (req, res) => {
     try {
         const boards = await prisma.board.findMany({
             where: filters,
-            orderBy: Object.keys(orderBy).length ?  orderBy : undefined
+            orderBy: Object.keys(orderBy).length ? orderBy : undefined,
+            include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    }
+                }
+            }
         });
         res.json(boards);
     } catch (err) {
@@ -36,11 +52,29 @@ exports.getAll = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-    const id = Number(req.params.id)
-    const board = await prisma.board.findUnique({where : { id }});
-    if (!board) return res.status(404).json({ error: "Not found!" });
-    res.json(board);
-}
+    const id = Number(req.params.id);
+
+    try {
+        const board = await prisma.board.findUnique({
+            where: { id },
+            include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true 
+                    }
+                }
+            }
+        });
+
+        if (!board) return res.status(404).json({ error: "Not found!" });
+        res.json(board);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
+    }
+};
 
 exports.getWithCards = async (req, res) => {
   const id = Number(req.params.id);
@@ -65,35 +99,39 @@ exports.getWithCards = async (req, res) => {
 
 // Post /boards
 exports.create = async (req, res) => {
-    try {
-        const { title, category, image_url, author_id } = req.body;
+  try {
+    const { title, category, image_url } = req.body;
+    const userId = req.user?.userId; // Extracted from JWT
 
-        // Validate fields
-        if (!title || !category) {
-            return res.status(400).json({ error: "Title and category are required." });
-        }
+    console.log("Authenticated user ID:", userId); // 👀 Debug
 
-        const data = {
-            title,
-            category
-        };
-
-        if (image_url) {
-            data.image_url = image_url;
-        }
-
-        if (author_id) {
-            data.author = {
-                connect: { id: author_id }
-            };
-        }
-        // Create the board
-        const newBoard = await prisma.board.create({ data });
-        res.status(201).json(newBoard);
-    } catch (err) {
-        res.status(500).json({ error: "Error creating board." });
+    if (!title || !category) {
+      return res.status(400).json({ error: "Title and category are required." });
     }
+
+    const data = {
+      title,
+      category,
+    };
+
+    if (image_url) {
+      data.image_url = image_url;
+    }
+
+    if (userId) {
+      data.author = {
+        connect: { id: userId },
+      };
+    }
+
+    const newBoard = await prisma.board.create({ data });
+    res.status(201).json(newBoard);
+  } catch (err) {
+    console.error("Error creating board:", err);
+    res.status(500).json({ error: "Error creating board." });
+  }
 };
+
 
 // Put /boards/:id
 exports.update = async (req, res) => {

@@ -18,12 +18,9 @@ function Login({onClose, onLogin, setUser}) {
 
         // Basic frontend validation
         const newErrors = {};
-        if (!formData.email) {
-            newErrors.email = 'Email is required';
-        }
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        }
+        if (!formData.email) newErrors.email = 'Email is required';
+        if (!formData.password) newErrors.password = 'Password is required';
+
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             setMessage('');
@@ -33,18 +30,21 @@ function Login({onClose, onLogin, setUser}) {
         try {
             const response = await axios.post("http://localhost:3000/users/login", formData);
 
-            if (onLogin) {
-                onLogin(response.data);
-            }
+            const { token, user } = response.data;
 
-            setUser(response.data.user);
+            // Store JWT token in localStorage
+            localStorage.setItem('token', token);
 
-            setMessage("Login successful! Welcome back " + response.data.user.name + "!");
-            console.log(response.data)
+            // Update user state in parent
+            if (setUser) setUser(user);
+            if (onLogin) onLogin(user);
+
+            setMessage("Login successful! Welcome back " + user.name + "!");
             setErrors({});
             setFormData({ email: '', password: '' });
-            navigate("/");
             
+            // Redirect to home
+            navigate("/");
         } catch (error) {
             const errorMsg = error.response?.data?.error || "Login failed. Please try again.";
             setMessage(errorMsg);

@@ -7,7 +7,7 @@ import { useState } from "react";
 
 
 
-function HomePage({user}) {
+function HomePage({user, setUser}) {
   // recent sort 
   const [recentSort, setRecentSort] = useState(false);
   // categories 
@@ -29,6 +29,13 @@ const handleClear = () => {
   setSearchTerm('');
   setSubmitTerm(''); 
 };
+
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+const handleBoardCreated = () => {
+  setRefreshTrigger(prev => !prev);
+};
+
   return (
     <div>
       <BoardHeader 
@@ -44,11 +51,17 @@ const handleClear = () => {
       setCategory={setCategory}
       category={category}
       setRecentSort={setRecentSort}
+      refreshTrigger={refreshTrigger}
+      onBoardCreated={handleBoardCreated}
       />
       <BoardGrid 
       submitTerm={submitTerm}
       category={category}
-      recentSort={recentSort}/>
+      recentSort={recentSort}
+      refreshTrigger={refreshTrigger}
+      user={user}
+      setUser={setUser}
+      />
       
       <Footer />
     </div>
