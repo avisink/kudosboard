@@ -1,8 +1,7 @@
 ## Unit Assignment: Kudos Board
 
-Submitted by: **NAME**
+Submitted by: **AYOMIDE ISINKAYE**
 
-Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
 
 ### Application Features
 
@@ -130,41 +129,55 @@ Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
 - [ ] The pinned state of a card persists when:
   - [ ] navigating away from and back to the board.
   - [ ] refreshing the page. 
-- [ ] **User Accounts**
-  - [ ] Users should be able to log in with a username and password.
-  - [ ] Users should be able to sign up for a new account.
-  - [ ] Boards and cards should be associated with a user.
-    - [ ] Anonymous cards or cards by guest users should still be allowed.
-  - [ ] Add a new filter option on the home page to display only the current user's boards.
+- [x] **User Accounts**
+  - [x] Users should be able to log in with a username and password.
+  - [x] Users should be able to sign up for a new account.
+  - [x] Boards and cards should be associated with a user.
+    - [x] Anonymous cards or cards by guest users should still be allowed.
+  - [x] Add a new filter option on the home page to display only the current user's boards.
   - [ ] Allow boards to be deleted only if they are owned by the user.
 
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+<div>
+    <a href="https://www.loom.com/share/51c1bf5f61914477a2510b309a476ee6">
+      <p>Vite + React - 3 July 2025 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/51c1bf5f61914477a2510b309a476ee6">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/51c1bf5f61914477a2510b309a476ee6-483f338b024e79b4-full-play.gif">
+    </a>
+  </div>
 
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+Yes, the topics discussed in the lectures were very helpful, especially when it came to concepts like making database models, or making endpoints and doing the routing process while putting the user experience into consideration, and so much more. I found it especially helpful to see how the fetch URLs in our project mirrored those used in the movie API example, which clarified the connection between the front-end and back-end. The way the projects build up in complexity is also really helpful, because it is very easy to refer to previous projects for certain concepts, btu still do (and learn) new things while building a new project.
+
+That said, I still felt somewhat unprepared when it came to managing GitHub workflows. Navigating merges, preventing branch conflicts, and understanding collaboration best practices were areas I found challenging.
+
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
+If I had more time, I would have focused on implementing stronger error handling and input validation to improve the reliability of the API. I also would have added backend filtering and search capabilities using query parameters for the cards (simply to help wth navigation if there are a lot of cards in one board). Additionally, I would have liked to write more thorough tests and enhance the front-end with better UI feedback based on server responses, such as displaying clear error or success messages. Overall, I would have aimed to further improve the user experience by making the application more personalized and customizable.
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+ 
+The demo went really well—we showcased all our core features, included some code snippets, and managed to stay within the allotted time, which was great. Everything proceeded as planned, and the communication among our group of three was smooth, making me even more excited for the capstone project. I was also impressed by how many peers were able to implement stretch features like light and dark mode, board pinning, and overall excellent UI design.
+
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+- GIPHY Documentation
+
 
 ### Shout out
 
 Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
 
+- Keith
+- Lucia
+- Alex
 
